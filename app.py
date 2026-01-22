@@ -50,7 +50,7 @@ def detect_pest(image_bytes):
     headers = {"Content-Type": "application/json"}
     data = {
         "image": img_base64,
-        "threshold": 0.5
+        "threshold": 0.3
     }
     request_url = f"{API_URL}?access_token={access_token}"
     
@@ -107,4 +107,5 @@ if uploaded_file is not None:
 # 底部提示
 # --------------------------
 st.markdown("---")
+
 st.caption("💡 使用提示：请在光线充足的环境下拍摄，确保害虫主体清晰，避免模糊或大面积遮挡。")
