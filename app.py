@@ -3,16 +3,16 @@ import requests
 import base64
 
 # 配置智谱GLM-4V API
-API_KEY = "cbbae83471e146a3af7fb551a9603d70.xOKLWyeE9RgAzH1Z"  # 替换为你的智谱API Key
+API_KEY = "你的APIKey"  # 替换为你的智谱API Key
 API_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
 
 def detect_pest_and_get_method(image_bytes):
-    """调用GLM-4V识别害虫+生成防治建议"""
+    """调用GLM-4V识别害虫+生成含具体农药的防治建议"""
     try:
         # 图片转Base64编码
         img_base64 = base64.b64encode(image_bytes).decode("utf-8")
         
-        # 构造请求体（同时要求名称+防治建议）
+        # 构造请求体（要求补充具体农药）
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {API_KEY}"
@@ -25,7 +25,7 @@ def detect_pest_and_get_method(image_bytes):
                     "content": [
                         {
                             "type": "text",
-                            "text": "请先识别这张图片中的害虫名称，再给出该害虫的农业防治方法，格式为：\n害虫名称：XXX\n防治建议：XXX"
+                            "text": "请先识别这张图片中的害虫名称，再给出该害虫的农业防治方法，其中化学防治部分需补充具体的低毒高效农药名称（如常用的杀虫剂型号），格式为：\n害虫名称：XXX\n防治建议：\n1. 物理防治：XXX\n2. 化学防治：XXX（具体农药名称：如氯虫苯甲酰胺、阿维菌素等）\n3. 生物防治：XXX\n4. 农艺措施：XXX\n5. 监测预警：XXX"
                         },
                         {
                             "type": "image_url",
@@ -54,7 +54,7 @@ def detect_pest_and_get_method(image_bytes):
 
 # Streamlit前端页面
 st.title("农业害虫识别+防治工具")
-st.write("上传害虫图片，自动识别并获取防治建议")
+st.write("上传害虫图片，自动识别并获取含具体农药的防治建议")
 
 # 图片上传组件
 uploaded_file = st.file_uploader("选择害虫图片（JPG/PNG）", type=["jpg", "jpeg", "png"])
