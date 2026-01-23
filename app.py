@@ -3,7 +3,7 @@ import requests
 import base64
 
 # 配置智谱GLM-4V API
-API_KEY = "你的APIKey"  # 替换为你的智谱API Key
+API_KEY = "cbbae83471e146a3af7fb551a9603d70.xOKLWyeE9RgAzH1Z"  # 替换为你的智谱API Key
 API_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
 
 def detect_pest_and_get_method(image_bytes):
@@ -73,3 +73,4 @@ if uploaded_file is not None:
             # 显示结果
             st.success("处理完成：")
             st.write(result)
+
