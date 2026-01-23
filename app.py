@@ -3,18 +3,18 @@ import requests
 import base64
 
 # 配置智谱GLM-4V API
-API_KEY = "你的APIKey"  # 替换为你的智谱API Key
+API_KEY = "cbbae83471e146a3af7fb551a9603d70.xOKLWyeE9RgAzH1Z"  # 替换为你的智谱API Key
 API_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
 
 def detect_pest_and_get_method(image_bytes):
-    """调用GLM-4V识别害虫+生成含具体农药的防治建议（修复编码问题）"""
+    """调用GLM-4V识别害虫+生成含具体农药的防治建议"""
     try:
         # 图片转Base64编码
         img_base64 = base64.b64encode(image_bytes).decode("utf-8")
         
-        # 构造请求体（指定UTF-8编码）
+        # 构造请求头（唯一配置，无重复）
         headers = {
-            "Content-Type": "application/json; charset=utf-8",  # 补充UTF-8编码
+            "Content-Type": "application/json; charset=utf-8",
             "Authorization": f"Bearer {API_KEY}"
         }
         data = {
@@ -38,17 +38,15 @@ def detect_pest_and_get_method(image_bytes):
             ]
         }
         
-        # 发送请求时指定UTF-8编码
+        # 发送请求（仅传一次headers，无重复）
         response = requests.post(
             API_URL,
             headers=headers,
             json=data,
-            timeout=25,
-            headers={"Content-Type": "application/json; charset=utf-8"}  # 确保编码
+            timeout=25
         )
         response.raise_for_status()
-        # 强制用UTF-8解析响应
-        result = response.json(encoding="utf-8")
+        result = response.json()
         
         # 提取结果
         content = result["choices"][0]["message"]["content"].strip()
