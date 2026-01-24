@@ -25,7 +25,7 @@ def detect_pest_and_get_method(image_bytes):
                     "content": [
                         {
                             "type": "text",
-                            "text": "请先识别这张图片中的害虫名称，再给出该害虫的农业防治方法，格式为：\n害虫名称：XXX\n防治建议：XXX"
+                            "text": "请先识别这张图片中的害虫名称(从蚜虫,红蜘蛛,菜青虫,天牛,蛴螬,棉铃虫，玉米螟幼虫,稻纵卷叶螟,稻飞虱中选择)，再给出该害虫的农业防治方法，格式为：\n害虫名称：XXX\n防治建议：XXX"
                         },
                         {
                             "type": "image_url",
@@ -73,4 +73,5 @@ if uploaded_file is not None:
             # 显示结果
             st.success("处理完成：")
             st.write(result)
+
 
